@@ -35,7 +35,7 @@ export default function EquipePage() {
       expertise: "Data Science, Business Intelligence, Visualisation",
       description:
         "3 années d'expérience dans la modélisation de données et l'analyse business. Spécialiste des solutions d'analyse prédictive et de visualisation de données pour l'aide à la décision.",
-      skills: ["Python", "SQL", "Docker", "Power BI", "Excel", "Azure Data", "R"],
+      skills: ["Python", "SQL", "Docker", "Power BI", "Excel", "Azure Data", "R", "Java","N8N"],
       icon: Cloud,
       color: "orange",
     },
@@ -54,7 +54,7 @@ export default function EquipePage() {
       expertise: "RPA, Intégrations, Workflows",
       description:
         "Consultant en automatisation des processus métiers. Expert en intégrations système et développement de workflows intelligents.",
-      skills: ["MAKE", "API", "Java", "N8N", "RPA", "Python","Zapier"],
+      skills: ["MAKE", "API", "Java", "N8N", "RPA", "Python","Zapier","R"],
       icon: Zap,
       color: "purple",
     },
