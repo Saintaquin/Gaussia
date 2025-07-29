@@ -58,6 +58,7 @@ export function Footer() {
               <div className="flex items-center text-gray-300">
                 <Phone className="h-4 w-4 mr-2" />
                 <span>+33 6 95 46 78 81</span>
+               </div> 
             </div>
           </div>
         </div>
