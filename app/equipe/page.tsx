@@ -40,7 +40,7 @@ export default function EquipePage() {
       expertise: "Data Science, Business Intelligence, Visualisation",
       description:
         "3 années d'expérience dans la modélisation de données et l'analyse business. Spécialiste des solutions d'analyse prédictive et de visualisation de données pour l'aide à la décision.",
-      skills: ["Python", "SQL", "Analytics", "Power BI", "Tableau", "Azure Data"],
+      skills: ["Python", "SQL", "Docker", "Power BI", "Excel", "Azure Data", "R", "Java","N8N"],
       icon: Cloud,
       color: "orange",
     },
@@ -49,7 +49,7 @@ export default function EquipePage() {
       role: "Spécialiste IA, modèles LLM",
       expertise: "IA, Infrastructure, Machine learning ",
       description: "Specialiste intelligence artificielle et modèles prédictifs LLM.",
-      skills: ["Java", "Phoenix"],
+      skills: ["Java", "Phoenix", "Python", "ETL", "LLM", "ML"],
       icon: Database,
       color: "green",
     },
@@ -59,7 +59,7 @@ export default function EquipePage() {
       expertise: "RPA, Intégrations, Workflows",
       description:
         "Consultant en automatisation des processus métiers. Expert en intégrations système et développement de workflows intelligents.",
-      skills: ["MAKE", "Zapier", "API", "Java", "N8N", "RPA"],
+      skills: ["MAKE", "Zapier", "API", "Java", "N8N", "RPA","Python","Zapier","R"],
       icon: Zap,
       color: "purple",
     },
