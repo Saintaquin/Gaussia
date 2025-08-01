@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Linkedin, Mail, Database, Cloud, Zap } from "lucide-react"
 import Link from "next/link"
 
+// trigger vercel deploy
+
 const colorMap = {
   orange: {
     bg100: "bg-orange-100",
