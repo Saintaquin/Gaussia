@@ -22,12 +22,36 @@ export default function ContactPage() {
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Simulate form submission
-    setIsSubmitted(true)
-    setTimeout(() => setIsSubmitted(false), 3000)
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+
+  try {
+    const res = await fetch("https://formspree.io/f/xrblaldo", { // remplace ici par ton vrai endpoint
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+
+    if (res.ok) {
+      setIsSubmitted(true)
+      setTimeout(() => setIsSubmitted(false), 4000)
+      setFormData({
+        name: "",
+        email: "",
+        company: "",
+        phone: "",
+        expertise: "",
+        message: "",
+      })
+    } else {
+      alert("Erreur lors de l'envoi. Merci de réessayer.")
+    }
+  } catch (err) {
+    alert("Erreur réseau. Merci de vérifier votre connexion.")
   }
+}
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
