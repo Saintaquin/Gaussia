@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -10,8 +9,10 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Mail, Phone, MapPin, Calendar, Send, CheckCircle } from "lucide-react"
+import { useForm } from "@formspree/react" // ✅ Formspree
 
 export default function ContactPage() {
+  // ✅ État local conservé (design/UX identiques)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,38 +21,9 @@ export default function ContactPage() {
     expertise: "",
     message: "",
   })
-  const [isSubmitted, setIsSubmitted] = useState(false)
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
-
-  try {
-    const res = await fetch("https://formspree.io/f/xrblaldo", { // remplace ici par ton vrai endpoint
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-
-    if (res.ok) {
-      setIsSubmitted(true)
-      setTimeout(() => setIsSubmitted(false), 4000)
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        phone: "",
-        expertise: "",
-        message: "",
-      })
-    } else {
-      alert("Erreur lors de l'envoi. Merci de réessayer.")
-    }
-  } catch (err) {
-    alert("Erreur réseau. Merci de vérifier votre connexion.")
-  }
-}
+  // ✅ Formspree : ID depuis ton PDF (xrblaldo)
+  const [state, handleSubmit] = useForm("xrblaldo") // envoi AJAX géré par Formspree
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -76,7 +48,8 @@ const handleSubmit = async (e: React.FormEvent) => {
               <CardTitle className="text-2xl text-navy">Parlez-nous de votre projet</CardTitle>
             </CardHeader>
             <CardContent>
-              {isSubmitted ? (
+              {/* ✅ Succès géré par Formspree */}
+              {state.succeeded ? (
                 <div className="text-center py-8">
                   <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
                   <h3 className="text-xl font-semibold text-navy mb-2">Message envoyé !</h3>
@@ -85,12 +58,14 @@ const handleSubmit = async (e: React.FormEvent) => {
                   </p>
                 </div>
               ) : (
+                // ✅ On laisse le design, on ajoute juste les name= et on branche handleSubmit
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="name">Nom complet *</Label>
                       <Input
                         id="name"
+                        name="name"            // ✅ requis par Formspree
                         value={formData.name}
                         onChange={(e) => handleChange("name", e.target.value)}
                         required
@@ -101,6 +76,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                       <Label htmlFor="email">Email *</Label>
                       <Input
                         id="email"
+                        name="email"           // ✅ requis par Formspree
                         type="email"
                         value={formData.email}
                         onChange={(e) => handleChange("email", e.target.value)}
@@ -115,6 +91,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                       <Label htmlFor="company">Entreprise</Label>
                       <Input
                         id="company"
+                        name="company"         // ✅
                         value={formData.company}
                         onChange={(e) => handleChange("company", e.target.value)}
                         className="mt-1"
@@ -124,6 +101,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                       <Label htmlFor="phone">Téléphone</Label>
                       <Input
                         id="phone"
+                        name="phone"           // ✅
                         value={formData.phone}
                         onChange={(e) => handleChange("phone", e.target.value)}
                         className="mt-1"
@@ -133,7 +111,10 @@ const handleSubmit = async (e: React.FormEvent) => {
 
                   <div>
                     <Label htmlFor="expertise">Domaine d'intérêt</Label>
-                    <Select onValueChange={(value) => handleChange("expertise", value)}>
+                    <Select
+                      onValueChange={(value) => handleChange("expertise", value)}
+                      // on garde le design shadcn (pas de <select> natif)
+                    >
                       <SelectTrigger className="mt-1">
                         <SelectValue placeholder="Sélectionnez un domaine" />
                       </SelectTrigger>
@@ -145,12 +126,15 @@ const handleSubmit = async (e: React.FormEvent) => {
                         <SelectItem value="other">Autre</SelectItem>
                       </SelectContent>
                     </Select>
+                    {/* ✅ input caché pour transmettre la valeur à Formspree */}
+                    <input type="hidden" name="expertise" value={formData.expertise} />
                   </div>
 
                   <div>
                     <Label htmlFor="message">Message *</Label>
                     <Textarea
                       id="message"
+                      name="message"          // ✅ requis par Formspree
                       value={formData.message}
                       onChange={(e) => handleChange("message", e.target.value)}
                       required
@@ -160,9 +144,14 @@ const handleSubmit = async (e: React.FormEvent) => {
                     />
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full bg-navy hover:bg-navy-light">
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full bg-navy hover:bg-navy-light"
+                    disabled={state.submitting} // ✅ bloque pendant l'envoi
+                  >
                     <Send className="h-4 w-4 mr-2" />
-                    Envoyer le message
+                    {state.submitting ? "Envoi..." : "Envoyer le message"}
                   </Button>
                 </form>
               )}
@@ -171,7 +160,6 @@ const handleSubmit = async (e: React.FormEvent) => {
 
           {/* Contact Info & Calendar */}
           <div className="space-y-8">
-            {/* Contact Information */}
             <Card className="border-0 shadow-xl">
               <CardHeader>
                 <CardTitle className="text-2xl text-navy">Nos coordonnées</CardTitle>
@@ -184,7 +172,6 @@ const handleSubmit = async (e: React.FormEvent) => {
                     <p className="text-gray-600">Paris, France</p>
                   </div>
                 </div>
-
                 <div className="flex items-start">
                   <Mail className="h-6 w-6 text-blue-600 mr-4 mt-1" />
                   <div>
@@ -192,7 +179,6 @@ const handleSubmit = async (e: React.FormEvent) => {
                     <p className="text-gray-600">contact@gaussia.fr</p>
                   </div>
                 </div>
-
                 <div className="flex items-start">
                   <Phone className="h-6 w-6 text-blue-600 mr-4 mt-1" />
                   <div>
@@ -203,7 +189,6 @@ const handleSubmit = async (e: React.FormEvent) => {
               </CardContent>
             </Card>
 
-            {/* Calendar Booking */}
             <Card className="border-0 shadow-xl bg-gradient-to-br from-blue-50 to-blue-100">
               <CardHeader>
                 <CardTitle className="text-2xl text-navy flex items-center">
@@ -226,7 +211,6 @@ const handleSubmit = async (e: React.FormEvent) => {
               </CardContent>
             </Card>
 
-            {/* FAQ */}
             <Card className="border-0 shadow-xl">
               <CardHeader>
                 <CardTitle className="text-2xl text-navy">Questions fréquentes</CardTitle>
@@ -238,14 +222,12 @@ const handleSubmit = async (e: React.FormEvent) => {
                     La durée varie selon la complexité, généralement entre 4 et 12 semaines.
                   </p>
                 </div>
-
                 <div>
                   <h4 className="font-semibold text-navy mb-2">Proposez-vous un audit gratuit ?</h4>
                   <p className="text-gray-600 text-sm">
                     Oui, nous offrons une consultation initiale gratuite pour évaluer vos besoins.
                   </p>
                 </div>
-
                 <div>
                   <h4 className="font-semibold text-navy mb-2">
                     Travaillez-vous avec toutes les tailles d'entreprise ?
@@ -290,3 +272,4 @@ const handleSubmit = async (e: React.FormEvent) => {
     </div>
   )
 }
+
