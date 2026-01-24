@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Luminous Canvas Palette */
+    --background: 40 33% 99%; /* #FEFDFB */
+    --foreground: 240 9% 11%; /* #1A1A1F - Anthracite */
+    
+    --card: 40 27% 96%; /* #F8F6F3 - Surface */
+    --card-foreground: 240 9% 11%;
+    
+    --popover: 40 33% 99%;
+    --popover-foreground: 240 9% 11%;
+    
+    --primary: 6 100% 68%; /* #FF6B5B - Corail Vif */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 191 91% 36%; /* #0891B2 - Bleu Océan */
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 40 15% 88%; /* #E5E2DD - Border/Muted */
+    --muted-foreground: 240 5% 44%; /* #6B6B73 - Gris Tempête */
+    
+    --accent: 158 64% 52%; /* #34D399 - Vert Menthe */
+    --accent-foreground: 240 9% 11%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 40 15% 88%;
+    --input: 40 15% 88%;
+    --ring: 6 100% 68%;
+    
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}
+
