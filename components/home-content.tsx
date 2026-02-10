@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { ArrowDown, ArrowRight, Zap, Play } from "lucide-react"
+import { ArrowDown, ArrowRight, Play } from "lucide-react"
 import { SlideSection } from "@/components/slide-section"
 import { AnimatedIcon } from "@/components/animated-icon"
 import { useEffect, useState, useRef, useCallback } from "react"
