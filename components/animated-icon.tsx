@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils"
 
 interface AnimatedIconProps {
-    name: "automation" | "web" | "app" | "data" | "erp"
+    name: "automation" | "web" | "app" | "data" | "erp" | "formation"
     className?: string
 }
 
@@ -64,6 +64,27 @@ export function AnimatedIcon({ name, className }: AnimatedIconProps) {
                         <path d="M56 56 L67 67" className="animate-pulse-slow" strokeDasharray="3 2" />
                         {/* Orbiting ring */}
                         <circle cx="50" cy="50" r="38" className="animate-[spin_15s_linear_infinite]" strokeDasharray="6 4" opacity="0.4" />
+                    </svg>
+                </div>
+            )
+        case "formation":
+            return (
+                <div className={cn("relative w-24 h-24", className)}>
+                    <svg viewBox="0 0 100 100" className="w-full h-full text-primary fill-none stroke-current stroke-2">
+                        {/* Graduation cap */}
+                        <polygon points="50,18 15,38 50,58 85,38" className="fill-primary/15 animate-float" />
+                        <path d="M50 58 L50 48" className="stroke-current" />
+                        <path d="M30 45 L30 65 Q50 78 70 65 L70 45" className="fill-primary/10 animate-pulse-slow" />
+                        {/* Tassel */}
+                        <path d="M85 38 L85 55" className="animate-pulse" />
+                        <circle cx="85" cy="58" r="3" className="fill-current animate-bounce" />
+                        {/* Open book at bottom */}
+                        <path d="M25 75 Q37 69 50 75 Q63 69 75 75" className="animate-pulse-slow" />
+                        <path d="M50 75 L50 82" />
+                        {/* Knowledge particles */}
+                        <circle cx="20" cy="25" r="2" className="fill-primary/30 animate-pulse" />
+                        <circle cx="80" cy="25" r="1.5" className="fill-primary/20 animate-pulse delay-200" />
+                        <circle cx="35" cy="12" r="1.5" className="fill-primary/25 animate-bounce" />
                     </svg>
                 </div>
             )

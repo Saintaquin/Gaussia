@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import Link from "next/link"
 import { ArrowDown, ArrowRight, Play } from "lucide-react"
 import { SlideSection } from "@/components/slide-section"
@@ -8,7 +9,30 @@ import { AnimatedIcon } from "@/components/animated-icon"
 import { useEffect, useState, useRef, useCallback } from "react"
 import { cn } from "@/lib/utils"
 
-const TOTAL_SLIDES = 6
+const TOTAL_SLIDES = 8
+
+const homeFaqItems = [
+  {
+    question: "Nous n'avons pas encore digitalisé nos processus. Par où commencer ?",
+    answer: "C'est justement le meilleur moment pour agir. Nous réalisons un audit gratuit de vos workflows existants pour identifier les quick wins : les tâches répétitives à automatiser en priorité. Pas besoin de tout transformer d'un coup — on commence petit, avec un ROI mesurable dès les premières semaines."
+  },
+  {
+    question: "Comment convaincre ma direction d'investir dans ces technologies ?",
+    answer: "Nous préparons avec vous un business case chiffré : temps gagné, erreurs évitées, coûts réduits. Nos projets pilotes sont conçus pour démontrer rapidement la valeur ajoutée, avec des résultats concrets en 2 à 4 semaines. C'est souvent suffisant pour déclencher un déploiement plus large."
+  },
+  {
+    question: "Nos données sont sensibles. Comment garantissez-vous leur sécurité ?",
+    answer: "La sécurité est au cœur de notre approche. Nous travaillons avec des infrastructures hébergées en Europe (RGPD), mettons en place des protocoles d'anonymisation pour les formations IA, et auditons systématiquement les flux de données. Aucune donnée client ne transite par des serveurs tiers non autorisés."
+  },
+  {
+    question: "Peut-on commencer par un petit projet avant de s'engager davantage ?",
+    answer: "Absolument, c'est même ce que nous recommandons. Un premier projet pilote (automatisation d'un processus, dashboard, mini-app) permet de valider l'approche, mesurer les gains et construire la confiance. La majorité de nos clients élargissent ensuite le périmètre naturellement."
+  },
+  {
+    question: "Quelle est la différence entre Gaussia et une ESN classique ?",
+    answer: "Nous ne vendons pas du temps-homme. Nous concevons des solutions clé en main, avec un interlocuteur unique de A à Z. Notre taille nous permet d'être agiles, réactifs et transparents — pas de reporting superflu, pas de couches hiérarchiques. Vous parlez directement aux experts qui construisent votre solution."
+  },
+]
 
 export default function HomeContent() {
   const [activeSlide, setActiveSlide] = useState(0)
@@ -176,9 +200,77 @@ export default function HomeContent() {
         cta={{ text: "Voir nos réalisations", href: "/expertises" }}
       />
 
-      {/* Slide 6: CTA Final */}
-      <section
+      {/* Slide 6: Formation */}
+      <SlideSection
         ref={setSlideRef(5)}
+        id="formation"
+        title="Formation & Montée en Compétences"
+        description="Formez vos équipes aux outils qui transforment le quotidien professionnel. IA Générative, Power BI, Google Looker Studio : nous vous accompagnons dans leur adoption concrète, avec des méthodes pratiques et un cadre sécurisé garantissant l'anonymisation de vos données."
+        features={[
+          "IA Générative (ChatGPT, Gemini, Claude)",
+          "Power BI & Google Looker Studio",
+          "Bonnes pratiques & anonymisation des données",
+          "Ateliers pratiques adaptés à votre métier"
+        ]}
+        icon={<AnimatedIcon name="formation" className="w-24 h-24 md:w-32 md:h-32" />}
+        variant="primary"
+        reverse
+        cta={{ text: "Demander un programme", href: "/contact" }}
+      />
+
+      {/* Slide 7: FAQ */}
+      <section
+        ref={setSlideRef(6)}
+        className="min-h-screen flex items-center justify-center px-4 py-16 sm:p-6 md:p-12 relative overflow-hidden snap-start bg-background"
+      >
+        <div className="absolute inset-0 w-full h-full pointer-events-none opacity-10">
+          <div className="absolute top-20 right-20 w-64 h-64 bg-primary rounded-full blur-3xl" />
+          <div className="absolute bottom-20 left-20 w-80 h-80 bg-secondary rounded-full blur-3xl" />
+        </div>
+
+        <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-16 items-start z-10">
+          {/* Left: Title */}
+          <div className="lg:col-span-2 lg:sticky lg:top-1/3">
+            <p className="text-sm font-mono uppercase tracking-widest text-primary mb-4">FAQ</p>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold leading-tight text-foreground">
+              Tout ce que vous devez savoir sur{" "}
+              <span className="text-primary">Gaussia</span>
+            </h2>
+            <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
+              Des réponses concrètes pour vous aider à prendre la bonne décision.
+            </p>
+            <div className="mt-8">
+              <Button asChild variant="outline" className="rounded-full px-6 border-muted hover:bg-muted/50">
+                <Link href="/contact">Plus de questions ? Contactez-nous</Link>
+              </Button>
+            </div>
+          </div>
+
+          {/* Right: Accordion */}
+          <div className="lg:col-span-3">
+            <Accordion type="single" collapsible className="space-y-4">
+              {homeFaqItems.map((item, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`faq-${index}`}
+                  className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl px-6 data-[state=open]:shadow-lg data-[state=open]:border-primary/20 transition-all duration-300"
+                >
+                  <AccordionTrigger className="text-left text-base sm:text-lg font-semibold text-foreground hover:no-underline py-5 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-primary [&>svg]:shrink-0">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground text-base leading-relaxed pb-5">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </section>
+
+      {/* Slide 8: CTA Final */}
+      <section
+        ref={setSlideRef(7)}
         className="h-screen flex flex-col items-center justify-center relative overflow-hidden snap-start bg-foreground text-background text-center p-4"
       >
         <div className="absolute inset-0 opacity-20 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />

@@ -64,6 +64,13 @@ export default function HomePage() {
         "provider": { "@id": "https://gaussia.fr/#organization" },
         "description": "Déploiement, configuration et personnalisation d'Odoo. Modules CRM, ventes, comptabilité, RH. Développement de modules sur-mesure et migration.",
         "serviceType": "Intégration ERP"
+      },
+      {
+        "@type": "Service",
+        "name": "Formation & Montée en Compétences",
+        "provider": { "@id": "https://gaussia.fr/#organization" },
+        "description": "Formation professionnelle sur l'IA Générative, Power BI et Google Looker Studio. Accompagnement pratique avec anonymisation des données et ateliers adaptés à votre métier.",
+        "serviceType": "Formation professionnelle"
       }
     ]
   }

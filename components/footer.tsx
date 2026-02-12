@@ -19,6 +19,7 @@ export function Footer() {
               {[
                 { name: "Accueil", href: "/" },
                 { name: "Nos expertises", href: "/expertises" },
+                { name: "Formation", href: "/#formation" },
                 { name: "Méthodologie", href: "/methodologie" },
                 { name: "Contact", href: "/contact" },
               ].map((item) => (
