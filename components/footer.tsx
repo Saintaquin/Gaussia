@@ -57,8 +57,12 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-border/50 text-center text-muted-foreground text-sm">
+        <div className="mt-8 pt-8 border-t border-border/50 text-center text-muted-foreground text-sm flex flex-col sm:flex-row items-center justify-center gap-2">
           <p>&copy; {new Date().getFullYear()} GAUSSIA. Tous droits réservés.</p>
+          <span className="hidden sm:inline">·</span>
+          <Link href="/mentions-legales" className="hover:text-primary transition-colors">
+            Mentions légales
+          </Link>
         </div>
       </div>
     </footer>
